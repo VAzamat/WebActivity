@@ -14,6 +14,7 @@ import logging
 import time
 
 
+from WebDiscussPython import WebDiscussPython
 from WebFedoraProject import WebFedoraProject
 from WebDiscussionFedoraProject import WebDiscussionFedoraProject
 from WebWikipediaRussian import WebWikipediaRussian
@@ -38,8 +39,12 @@ firefox_options.add_argument( '{}/.mozilla/firefox/WebActivity'.format(Path.home
 browser = webdriver.Firefox(firefox_options)
 browser.get("https://www.mozilla.org/ru/")
 
+web7 = WebDiscussPython(global_scheduler, main_logger, browser)
+web7.set_schedule( "10:15", "22:40", 2 )
+
 web1 = WebFedoraProject(global_scheduler, main_logger, browser)
 web1.set_schedule( "12:01", "22:40", 25 )
+
 
 web2 = WebWikipediaRussian(global_scheduler, main_logger, browser)
 web2.set_schedule( "10:00", "23:59", 35 )
@@ -51,11 +56,10 @@ web5 = WebArxiv(global_scheduler, main_logger, browser)
 web5.set_schedule( "10:25", "23:00", 18 )
 
 web6 = WebDiscussionFedoraProject(global_scheduler, main_logger, browser)
-web6.set_schedule( "09:15", "20:00", 1 )
+web6.set_schedule( "09:15", "20:00", 10 )
 
 web4 = WebHabr(global_scheduler, main_logger, browser)
 web4.set_schedule( "09:35", "18:00", 15 )
-
 
 while True:
     global_scheduler.run_pending()
